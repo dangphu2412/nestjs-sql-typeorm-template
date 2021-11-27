@@ -14,12 +14,12 @@ export class JwtPayloadDto implements JwtPayload {
    * This would be a random id to generate such a different token
    */
   // jti: string;
-  userId: string;
+  sub: string;
   roles: string[];
 
   static create(userId, roles) {
     const instance = new JwtPayloadDto();
-    instance.userId = userId;
+    instance.sub = userId;
     instance.roles = roles;
     return instance;
   }

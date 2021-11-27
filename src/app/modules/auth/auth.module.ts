@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '../../../external/config/config.service';
 import { JwtStrategy } from './jwt.strategy';
-import { OAuth2AuthenticationProvider } from './o-auth2-authentication.provider';
-import { BcryptService } from './bcrypt.service';
+import { OAuth2AuthenticationProvider } from './provider/o-auth2-authentication.provider';
+import { BcryptService } from './services/bcrypt.service';
 import { UserModule } from '../user/user.module';
 import { UserService } from '../user/user.service';
 

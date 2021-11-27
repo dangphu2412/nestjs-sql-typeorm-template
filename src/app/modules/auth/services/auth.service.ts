@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { OAuth2AuthenticationProvider } from './o-auth2-authentication.provider';
+import { OAuth2AuthenticationProvider } from '../provider/o-auth2-authentication.provider';
 import { JwtService } from '@nestjs/jwt';
-import { AuthenticatedResponseDto } from './dto/authenticated-response.dto';
+import { AuthenticatedResponseDto } from '../dto/authenticated-response.dto';
 import { BcryptService } from './bcrypt.service';
-import { UserService } from '../user/user.service';
-import { JwtPayloadDto } from './dto/jwt-payload.dto';
+import { UserService } from '../../user/user.service';
+import { JwtPayloadDto } from '../dto/jwt-payload.dto';
 
 @Injectable()
 export class AuthService {
