@@ -9,6 +9,9 @@ import { OAuth2AuthenticationProvider } from './provider/o-auth2-authentication.
 import { BcryptService } from './services/bcrypt.service';
 import { UserModule } from '../user/user.module';
 import { UserService } from '../user/user.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from '@modules/user/user.entity';
 
 @Module({
   imports: [
@@ -20,6 +23,7 @@ import { UserService } from '../user/user.service';
       },
     }),
     UserModule,
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
   providers: [
