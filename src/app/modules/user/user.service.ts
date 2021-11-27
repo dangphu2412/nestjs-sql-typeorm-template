@@ -22,4 +22,8 @@ export class UserService {
   public getBasicProfile(user: User): ProfileDto {
     return pick(user, ['id', 'username', 'fullName', 'avatar']) as ProfileDto;
   }
+
+  public findAll() {
+    return this.userRepository.find();
+  }
 }
