@@ -1,8 +1,8 @@
-import { Logger, ValidationPipe } from "@nestjs/common";
-import { NestFactory } from "@nestjs/core";
-import { ConfigService } from "src/external/config/config.service";
-import { AppModule } from "./app.module";
-import { configSwagger } from "./configs/swagger.config";
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { ConfigService } from 'src/external/config/config.service';
+import { AppModule } from './app.module';
+import { configSwagger } from './configs/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,11 +10,14 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  configSwagger(app, "docs");
+  configSwagger(app, 'docs');
 
   await app.listen(PORT);
 
-  Logger.log(`Server is in ${ConfigService.get('NODE_ENV')} mode`, 'NestApplication');
+  Logger.log(
+    `Server is in ${ConfigService.get('NODE_ENV')} mode`,
+    'NestApplication',
+  );
   Logger.log(`Server is listening on ${PORT}`, 'NestApplication');
 }
 

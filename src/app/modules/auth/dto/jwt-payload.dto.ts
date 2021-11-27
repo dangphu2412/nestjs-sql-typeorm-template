@@ -1,0 +1,26 @@
+import { JwtPayload } from 'jsonwebtoken';
+
+export class JwtPayloadDto implements JwtPayload {
+  // Issuer: verify whitelist of issuer
+  // iss: string;
+  // The target audience which was issued the token
+  // aud: string;
+  // issued at - to reject if the token is too old
+  // iat: number;
+  // Not before time - token should be rejected before the time
+  //nbf: number;
+  /**
+   * To avoid that in the same time, same user, same scope, same content will generate the same token
+   * This would be a random id to generate such a different token
+   */
+  // jti: string;
+  userId: string;
+  roles: string[];
+
+  static create(userId, roles) {
+    const instance = new JwtPayloadDto();
+    instance.userId = userId;
+    instance.roles = roles;
+    return instance;
+  }
+}
