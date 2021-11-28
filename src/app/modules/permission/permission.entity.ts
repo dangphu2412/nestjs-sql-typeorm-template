@@ -1,5 +1,5 @@
 import { Role } from '@modules/role/role.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('permissions')
 export class Permission {
@@ -9,9 +9,9 @@ export class Permission {
   @Column({ name: 'name', unique: true })
   public name: string;
 
-  @Column({ name: 'priority', unique: true, type: 'smallint' })
+  @Column({ name: 'priority', type: 'smallint' })
   public priority: number;
 
-  @ManyToMany(() => Role, (role) => role.permissions)
-  public roles: Role[];
+  @ManyToOne(() => Role, (role) => role.permissions)
+  public role: Role;
 }

@@ -23,6 +23,10 @@ export class JwtPayloadDto implements JwtPayload {
     instance.sub = userId;
     instance.roles = roles;
     instance.fullName = fullName;
-    return instance;
+    return {
+      sub: userId,
+      roles: roles,
+      fullName: fullName,
+    };
   }
 }

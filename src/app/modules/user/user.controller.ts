@@ -2,7 +2,7 @@ import { Protected } from '@modules/auth/decorator/protected.decorator';
 import { AuthContext } from '@modules/auth/decorator/user-cred.decorator';
 import { UserCredential } from '@modules/auth/types/user-cred.interface';
 import { Controller, Get } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 
 @ApiTags('users')

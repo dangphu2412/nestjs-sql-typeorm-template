@@ -1,8 +1,13 @@
 import { UserCredential } from '@modules/auth/types/user-cred.interface';
 import { PermissionService } from '@modules/permission/permission.service';
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Transaction } from 'typeorm';
+import { CreatePermissionDto } from './dto/create-permissions.dto';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { Role } from './role.entity';
 
@@ -32,5 +37,26 @@ export class RoleService {
       },
       { reload: false },
     );
+  }
+
+  @Transaction()
+  async createPermissionsOfRole(
+    roleId: string,
+    createPermissionDtos: CreatePermissionDto[],
+  ) {
+    const role = await this.roleRepository.findOne(roleId);
+
+    if (!role) {
+      throw new NotFoundException(`Role is not found`);
+    }
+
+    try {
+      await this.permissionService.createPermissions(
+        role,
+        createPermissionDtos,
+      );
+    } catch (error) {
+      throw new UnprocessableEntityException(`Duplicated permissions`);
+    }
   }
 }

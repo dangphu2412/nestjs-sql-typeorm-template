@@ -1,11 +1,5 @@
 import { Permission } from '@modules/permission/permission.entity';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('roles')
 export class Role {
@@ -18,17 +12,6 @@ export class Role {
   @Column({ name: 'updated_by', nullable: true })
   public updatedBy: string;
 
-  @ManyToMany(() => Permission, (per) => per.roles)
-  @JoinTable({
-    name: 'roles_permissions',
-    joinColumn: {
-      name: 'role_id',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'permission_id',
-      referencedColumnName: 'id',
-    },
-  })
+  @OneToMany(() => Permission, (per) => per.role, { cascade: ['insert'] })
   public permissions: Permission[];
 }

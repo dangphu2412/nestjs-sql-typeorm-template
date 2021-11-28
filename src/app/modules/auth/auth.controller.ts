@@ -17,4 +17,11 @@ export class AuthController {
   public loginWithGoogle(@Headers('oauth-google-token') accessToken: string) {
     return this.authService.loginWithGoogle(accessToken);
   }
+
+  @ApiCreatedResponse()
+  @ApiUnauthorizedResponse()
+  @Post('/test/get-cred')
+  public getTestCredentials() {
+    return this.authService.generateTestToken();
+  }
 }

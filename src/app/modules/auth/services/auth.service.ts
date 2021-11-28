@@ -32,4 +32,11 @@ export class AuthService {
       profile: this.userService.getBasicProfile(user),
     };
   }
+
+  generateTestToken() {
+    return {
+      accessToken: this.jwtService.sign(JwtPayloadDto.create(1, 'fus', [])),
+      profile: {},
+    };
+  }
 }

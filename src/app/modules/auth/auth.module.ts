@@ -1,17 +1,16 @@
+import { User } from '@modules/user/user.entity';
 import { Module } from '@nestjs/common';
-import { AuthService } from './services/auth.service';
-import { AuthController } from './auth.controller';
-import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '../../../external/config/config.service';
-import { JwtStrategy } from './jwt.strategy';
-import { OAuth2AuthenticationProvider } from './provider/o-auth2-authentication.provider';
-import { BcryptService } from './services/bcrypt.service';
 import { UserModule } from '../user/user.module';
 import { UserService } from '../user/user.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '@modules/user/user.entity';
+import { AuthController } from './auth.controller';
+import { JwtStrategy } from './jwt.strategy';
+import { OAuth2AuthenticationProvider } from './provider/o-auth2-authentication.provider';
+import { AuthService } from './services/auth.service';
+import { BcryptService } from './services/bcrypt.service';
 
 @Module({
   imports: [
