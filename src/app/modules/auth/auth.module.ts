@@ -1,3 +1,5 @@
+import { Permission } from '@modules/permission/permission.entity';
+import { PermissionService } from '@modules/permission/permission.service';
 import { User } from '@modules/user/user.entity';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
@@ -22,7 +24,7 @@ import { BcryptService } from './services/bcrypt.service';
       },
     }),
     UserModule,
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Permission]),
   ],
   controllers: [AuthController],
   providers: [
@@ -31,6 +33,7 @@ import { BcryptService } from './services/bcrypt.service';
     OAuth2AuthenticationProvider,
     BcryptService,
     UserService,
+    PermissionService,
   ],
 })
 export class AuthModule {}

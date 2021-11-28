@@ -1,8 +1,9 @@
 import { Protected } from '@modules/auth/decorator/protected.decorator';
 import { AuthContext } from '@modules/auth/decorator/user-cred.decorator';
 import { UserCredential } from '@modules/auth/types/user-cred.interface';
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { GrantPermissionDto } from './dto/grant-permission.dto';
 import { UserService } from './user.service';
 
 @ApiTags('users')
@@ -12,7 +13,15 @@ export class UserController {
 
   @Protected
   @Get()
-  findAll(@AuthContext() user: UserCredential) {
+  public findAll(@AuthContext() user: UserCredential) {
     return this.userService.findAll();
+  }
+
+  @Post('/:userId/permissions')
+  public grantPermissionsForUser(
+    @Param('userId') userId: string,
+    @Body() grantPermissionDto: GrantPermissionDto,
+  ) {
+    return this.userService.grantPermissionForUser(userId, grantPermissionDto);
   }
 }

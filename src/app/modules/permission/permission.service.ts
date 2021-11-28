@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   EntityManager,
+  In,
   Repository,
   Transaction,
   TransactionManager,
@@ -32,5 +33,13 @@ export class PermissionService {
     });
 
     return transactionEntityManager.insert(Permission, permissions);
+  }
+
+  public findByIds(ids: string[]) {
+    return this.permissionRepository.find({
+      where: {
+        id: In(ids),
+      },
+    });
   }
 }

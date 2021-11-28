@@ -1,5 +1,12 @@
 import { TimeEntityGenerator } from '@database/base/time-entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Permission } from '@modules/permission/permission.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('users')
 export class User extends TimeEntityGenerator() {
@@ -20,4 +27,18 @@ export class User extends TimeEntityGenerator() {
 
   @Column({ name: 'avatar' })
   public avatar: string;
+
+  @ManyToMany(() => Permission, (per) => per.users)
+  @JoinTable({
+    name: 'users_permissions',
+    joinColumn: {
+      name: 'users_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'permissions_id',
+      referencedColumnName: 'id',
+    },
+  })
+  public permissions: Permission[];
 }
