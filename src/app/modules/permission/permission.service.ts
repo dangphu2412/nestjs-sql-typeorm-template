@@ -2,7 +2,12 @@ import { CreatePermissionDto } from '@modules/role/dto/create-permissions.dto';
 import { Role } from '@modules/role/role.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {
+  EntityManager,
+  Repository,
+  Transaction,
+  TransactionManager,
+} from 'typeorm';
 import { Permission } from './permission.entity';
 
 @Injectable()
@@ -12,7 +17,12 @@ export class PermissionService {
     private permissionRepository: Repository<Permission>,
   ) {}
 
-  createPermissions(role: Role, createPermissionDtos: CreatePermissionDto[]) {
+  @Transaction()
+  createPermissions(
+    role: Role,
+    createPermissionDtos: CreatePermissionDto[],
+    @TransactionManager() transactionEntityManager?: EntityManager,
+  ) {
     const permissions = createPermissionDtos.map((createDto) => {
       const entity = new Permission();
       entity.name = createDto.name;
@@ -20,6 +30,7 @@ export class PermissionService {
       entity.role = role;
       return entity;
     });
-    return this.permissionRepository.insert(permissions);
+
+    return transactionEntityManager.insert(Permission, permissions);
   }
 }
