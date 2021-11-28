@@ -16,16 +16,16 @@ export class JwtPayloadDto implements JwtPayload {
   // jti: string;
   sub: string;
   fullName: string;
-  roles: string[];
+  permissions: string[];
 
-  static create(userId, fullName: string, roles) {
+  static create(userId: string, fullName: string, permissions: string[]) {
     const instance = new JwtPayloadDto();
     instance.sub = userId;
-    instance.roles = roles;
+    instance.permissions = permissions;
     instance.fullName = fullName;
     return {
       sub: userId,
-      roles: roles,
+      permissions: permissions,
       fullName: fullName,
     };
   }

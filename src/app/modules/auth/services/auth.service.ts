@@ -24,10 +24,10 @@ export class AuthService {
       );
 
     const user = await this.userService.findByEmail(email);
-
+    const permissions = user.permissions.map((per) => per.name);
     return {
       accessToken: this.jwtService.sign(
-        JwtPayloadDto.create(user.id, user.fullName, []),
+        JwtPayloadDto.create(user.id, user.fullName, permissions),
       ),
       profile: this.userService.getBasicProfile(user),
     };
@@ -35,7 +35,7 @@ export class AuthService {
 
   generateTestToken() {
     return {
-      accessToken: this.jwtService.sign(JwtPayloadDto.create(1, 'fus', [])),
+      accessToken: this.jwtService.sign(JwtPayloadDto.create('1', 'fus', [])),
       profile: {},
     };
   }
