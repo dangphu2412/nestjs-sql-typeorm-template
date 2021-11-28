@@ -1,9 +1,15 @@
 import { Permission } from '@modules/permission/permission.entity';
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('roles')
 export class Role {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   public id: string;
 
   @Column({ name: 'name', unique: true })

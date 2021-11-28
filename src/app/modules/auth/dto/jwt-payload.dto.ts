@@ -15,12 +15,14 @@ export class JwtPayloadDto implements JwtPayload {
    */
   // jti: string;
   sub: string;
+  fullName: string;
   roles: string[];
 
-  static create(userId, roles) {
+  static create(userId, fullName: string, roles) {
     const instance = new JwtPayloadDto();
     instance.sub = userId;
     instance.roles = roles;
+    instance.fullName = fullName;
     return instance;
   }
 }

@@ -1,9 +1,9 @@
 import { TimeEntityGenerator } from '@database/base/time-entity';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class User extends TimeEntityGenerator() {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   public id: string;
 
   @Column({ name: 'username', unique: true })

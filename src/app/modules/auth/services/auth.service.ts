@@ -26,7 +26,9 @@ export class AuthService {
     const user = await this.userService.findByEmail(email);
 
     return {
-      accessToken: this.jwtService.sign(JwtPayloadDto.create(user.id, [])),
+      accessToken: this.jwtService.sign(
+        JwtPayloadDto.create(user.id, user.fullName, []),
+      ),
       profile: this.userService.getBasicProfile(user),
     };
   }
