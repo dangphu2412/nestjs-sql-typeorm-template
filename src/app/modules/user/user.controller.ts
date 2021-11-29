@@ -7,6 +7,8 @@ import { GrantPermissionDto } from './dto/grant-permission.dto';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
+import { PermissionGranted } from '@modules/auth/decorator/granted-permission.decorator';
+import { Permissions } from '@constants/permissions.enum';
 
 @ApiTags('users')
 @Controller('v1/users')
@@ -24,6 +26,8 @@ export class UserController {
     return this.userService.createOne(createUserDto);
   }
 
+  @Protected
+  @PermissionGranted(Permissions.ADMIN)
   @Post('/:userId/permissions')
   public grantPermissionsForUser(
     @Param('userId') userId: string,

@@ -1,0 +1,1 @@
+export const PERMISSION_REFLECTOR_KEY = 'PRK';
