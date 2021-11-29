@@ -30,7 +30,8 @@
     "typeorm:w": "ts-node -r tsconfig-paths/register node_modules\\typeorm\\cli.js",
     "migrate:w-create": "npm run typeorm:w migration:create -- -n",
     "migrate:w-latest": "npm run typeorm:w migration:run",
-    "migrate:w-rollback": "npm run typeorm:w migration:revert"
+    "migrate:w-rollback": "npm run typeorm:w migration:revert",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
