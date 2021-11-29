@@ -1,3 +1,4 @@
+import { BcryptService } from '@modules/auth/services/bcrypt.service';
 import { Permission } from '@modules/permission/permission.entity';
 import { PermissionService } from '@modules/permission/permission.service';
 import { Module } from '@nestjs/common';
@@ -9,6 +10,6 @@ import { UserService } from './user.service';
 @Module({
   imports: [TypeOrmModule.forFeature([User, Permission])],
   controllers: [UserController],
-  providers: [UserService, PermissionService],
+  providers: [UserService, PermissionService, BcryptService],
 })
 export class UserModule {}

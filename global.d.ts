@@ -1,1 +1,1 @@
-declare type Constructor = new (args: any[]) => any;
+declare type Constructor = new (...args: any[]) => any;

@@ -64,4 +64,10 @@ export class RoleService {
       throw new UnprocessableEntityException(`Duplicated permissions`);
     }
   }
+
+  findAllIncludesPermissions() {
+    return this.roleRepository.find({
+      relations: ['permissions'],
+    });
+  }
 }

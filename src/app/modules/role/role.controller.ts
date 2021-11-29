@@ -1,10 +1,11 @@
 import { Protected } from '@modules/auth/decorator/protected.decorator';
 import { AuthContext } from '@modules/auth/decorator/user-cred.decorator';
 import { UserCredential } from '@modules/auth/types/user-cred.interface';
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import {
   ApiBody,
   ApiCreatedResponse,
+  ApiOkResponse,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
@@ -43,5 +44,11 @@ export class RoleController {
       roleId,
       createPermissionDto,
     );
+  }
+
+  @ApiOkResponse()
+  @Get()
+  public findAllRolesIncludesPermissions() {
+    return this.roleService.findAllIncludesPermissions();
   }
 }

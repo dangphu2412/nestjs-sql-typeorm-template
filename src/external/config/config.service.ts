@@ -4,6 +4,8 @@ import { existsSync } from 'fs';
 config();
 
 export class ConfigService {
+  private static cacheStore = new Map();
+
   static config(filePath: string) {
     if (!existsSync(filePath)) {
       throw new Error(`No file path found: ${filePath}`);
@@ -30,5 +32,13 @@ export class ConfigService {
 
   static getInt(key: string): number {
     return Number.parseInt(ConfigService.get(key), 10);
+  }
+
+  static getCache(key: string): any {
+    if (ConfigService.cacheStore.has(key)) {
+      return ConfigService.cacheStore.get(key);
+    }
+
+    return ConfigService.get(key);
   }
 }

@@ -3,6 +3,7 @@ import { Permission } from '@modules/permission/permission.entity';
 import {
   Column,
   Entity,
+  Index,
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
@@ -14,11 +15,13 @@ export class User extends TimeEntityGenerator() {
   public id: string;
 
   @Column({ name: 'username', unique: true })
+  @Index()
   public username: string;
 
   @Column({ name: 'full_name' })
   public fullName: string;
 
+  @Index()
   @Column({ name: 'email', unique: true })
   public email: string;
 
@@ -41,4 +44,10 @@ export class User extends TimeEntityGenerator() {
     },
   })
   public permissions: Permission[];
+
+  static create(partials: Partial<User>) {
+    const i = new User();
+    Object.assign(i, partials);
+    return i;
+  }
 }
