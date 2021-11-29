@@ -2,7 +2,6 @@ import { CreatePermissionDto } from '@modules/role/dto/create-permissions.dto';
 import { Role } from '@modules/role/role.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { keyBy } from 'lodash';
 import {
   EntityManager,
   In,

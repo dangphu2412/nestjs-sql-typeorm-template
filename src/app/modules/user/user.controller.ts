@@ -1,14 +1,13 @@
+import { Permissions } from '@constants/permissions.enum';
+import { PermissionGranted } from '@modules/auth/decorator/granted-permission.decorator';
 import { Protected } from '@modules/auth/decorator/protected.decorator';
 import { AuthContext } from '@modules/auth/decorator/user-cred.decorator';
 import { UserCredential } from '@modules/auth/types/user-cred.interface';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { GrantPermissionDto } from './dto/grant-permission.dto';
-
 import { CreateUserDto } from './dto/create-user.dto';
+import { GrantPermissionDto } from './dto/grant-permission.dto';
 import { UserService } from './user.service';
-import { PermissionGranted } from '@modules/auth/decorator/granted-permission.decorator';
-import { Permissions } from '@constants/permissions.enum';
 
 @ApiTags('users')
 @Controller('v1/users')
