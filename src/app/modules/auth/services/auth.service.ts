@@ -5,6 +5,7 @@ import { AuthenticatedResponseDto } from '../dto/authenticated-response.dto';
 import { BcryptService } from './bcrypt.service';
 import { UserService } from '../../user/user.service';
 import { JwtPayloadDto } from '../dto/jwt-payload.dto';
+import { PermissionService } from '@modules/permission/permission.service';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
     private jwtService: JwtService,
     private bcryptService: BcryptService,
     private userService: UserService,
+    private permissionService: PermissionService,
   ) {}
 
   public async loginWithGoogle(
@@ -24,7 +26,9 @@ export class AuthService {
       );
 
     const user = await this.userService.findByEmail(email);
-    const permissions = user.permissions.map((per) => per.name);
+    const permissions = this.permissionService.toPermissionRules(
+      user.permissions,
+    );
     return {
       accessToken: this.jwtService.sign(
         JwtPayloadDto.create(user.id, user.fullName, permissions),
@@ -35,7 +39,9 @@ export class AuthService {
 
   generateTestToken() {
     return {
-      accessToken: this.jwtService.sign(JwtPayloadDto.create('1', 'fus', [])),
+      accessToken: this.jwtService.sign(
+        JwtPayloadDto.create('1', 'fus', { VIEWER: 1 }),
+      ),
       profile: {},
     };
   }

@@ -2,6 +2,7 @@ import { CreatePermissionDto } from '@modules/role/dto/create-permissions.dto';
 import { Role } from '@modules/role/role.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { keyBy } from 'lodash';
 import {
   EntityManager,
   In,
@@ -19,7 +20,7 @@ export class PermissionService {
   ) {}
 
   @Transaction()
-  createPermissions(
+  public createPermissions(
     role: Role,
     createPermissionDtos: CreatePermissionDto[],
     @TransactionManager() transactionEntityManager?: EntityManager,
@@ -41,5 +42,16 @@ export class PermissionService {
         id: In(ids),
       },
     });
+  }
+
+  public toPermissionRules(permissions: Permission[]): Record<string, number> {
+    const RULE_IS_WORKING = 1;
+    const DISABLE_RULE = 0; // Will be develop in permission in future
+
+    const rules: Record<string, number> = {};
+    permissions.forEach((permission) => {
+      rules[permission.name] = RULE_IS_WORKING;
+    });
+    return rules;
   }
 }
