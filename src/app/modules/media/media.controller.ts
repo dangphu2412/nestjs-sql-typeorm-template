@@ -30,7 +30,7 @@ export class MediaController {
   @UseInterceptors(
     FilesInterceptor('files', +ConfigService.getCache('UPLOAD_MAX_COUNT')),
   )
-  uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
-    console.log(files);
+  async uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
+    return this.mediaService.uploadImages(files);
   }
 }

@@ -1,8 +1,4 @@
-import {
-  HttpException,
-  Injectable,
-  UnsupportedMediaTypeException,
-} from '@nestjs/common';
+import { Injectable, UnsupportedMediaTypeException } from '@nestjs/common';
 import {
   MulterOptionsFactory,
   MulterModuleOptions,
