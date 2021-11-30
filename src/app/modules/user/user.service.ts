@@ -15,6 +15,8 @@ import { PermissionService } from '@modules/permission/permission.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { BcryptService } from '@modules/auth/services/bcrypt.service';
 import { ConfigService } from '@external/config/config.service';
+import { ArrayUtils } from '@external/utils/array/array.utils';
+import { ErrorAssertion } from '@modules/error/error-assertion';
 
 @Injectable()
 export class UserService {
@@ -56,6 +58,15 @@ export class UserService {
     }
 
     const permissions = await this.permissionService.findByIds(
+      grantPermissionDto.permissionIds,
+    );
+
+    if (ArrayUtils.isEmpty(permissions)) {
+      throw new NotFoundException('No permissions found to grant for user');
+    }
+
+    ErrorAssertion.assertKeysNotDiff(
+      permissions,
       grantPermissionDto.permissionIds,
     );
 

@@ -1,12 +1,12 @@
 import { ConfigService } from '@external/config/config.service';
 import { Injectable } from '@nestjs/common';
-import aws from 'aws-sdk';
+import aws, { S3 } from 'aws-sdk';
 
 @Injectable()
 export class S3Provider {
-  private provider;
+  private provider: S3;
   private bucketName: string;
-  private expirations: number;
+  private urlExpires: number;
 
   constructor() {
     aws.config.update({
@@ -15,7 +15,17 @@ export class S3Provider {
       region: ConfigService.get('AWS_REGION'),
     });
     this.bucketName = ConfigService.get('AWS_BUCKET_NAME');
-    this.expirations = ConfigService.getInt('AWS_EXPIRATIONS');
+    this.urlExpires = ConfigService.getInt('AWS_EXPIRES');
     this.provider = new aws.S3();
+  }
+
+  public getSignedUrl(key: string, type: string) {
+    return this.provider.getSignedUrlPromise('putObject', {
+      Bucket: this.bucketName,
+      Key: key,
+      ContentType: type,
+      ACL: 'public-read',
+      Expires: this.urlExpires,
+    });
   }
 }
