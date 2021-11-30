@@ -1,4 +1,5 @@
 import { getTypeOrmModule } from '@config/typeorm.config';
+import { MediaModule } from '@modules/media/media.module';
 import { PermissionModule } from '@modules/permission/permission.module';
 import { RoleModule } from '@modules/role/role.module';
 import { Module } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { UserModule } from './modules/user/user.module';
     UserModule,
     RoleModule,
     PermissionModule,
+    MediaModule,
   ],
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { BaseTracker } from './base-tracker';
 import { TimeTracker } from './time-tracker';
 import { TrashTracker } from './trash-tracker';
-import '../../../../global';
+import { Constructor } from '../../../../global';
 
 export enum TimeType {
   TrashTracker,
