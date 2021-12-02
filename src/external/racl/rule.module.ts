@@ -16,6 +16,7 @@ export class RaclModule {
           useClass: config.useClass,
         },
       ],
+      exports: ['RULE_CONFIG'],
     };
   }
 }

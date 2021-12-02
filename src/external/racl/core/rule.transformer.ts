@@ -1,27 +1,24 @@
 import {
-  CallHandler,
+  CanActivate,
   ExecutionContext,
   Inject,
   Injectable,
-  NestInterceptor,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { RuleConfigFactory, RuleDefinition } from './rule.config';
 
 @Injectable()
-export class RuleTransformer implements NestInterceptor {
+export class RuleTransformer implements CanActivate {
   private rules: RuleDefinition;
 
   constructor(@Inject('RULE_CONFIG') ruleConfigFactory: RuleConfigFactory) {
     this.rules = ruleConfigFactory.defineRules();
     console.log(this.rules);
   }
-  intercept(
+  canActivate(
     context: ExecutionContext,
-    next: CallHandler<any>,
-  ): Observable<any> {
-    console.log(this.rules);
-
-    return next.handle();
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    // TODO: implement way to map rules here
+    return true;
   }
 }
