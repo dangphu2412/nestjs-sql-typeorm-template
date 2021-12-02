@@ -1,5 +1,5 @@
+import { RuleConfig } from '@config/rule.config';
 import { getTypeOrmModule } from '@config/typeorm.config';
-import { RuleConfig } from '@external/racl/core/rule.config';
 import { RaclModule } from '@external/racl/rule.module';
 import { MediaModule } from '@modules/media/media.module';
 import { PermissionModule } from '@modules/permission/permission.module';
