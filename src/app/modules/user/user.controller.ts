@@ -23,8 +23,6 @@ export class UserController {
     @AuthContext() user: UserCredential,
     @ExtractRuleManager() ruleManager: RuleManager,
   ) {
-    console.log(ruleManager);
-
     return this.userService.findAll();
   }
 

@@ -22,9 +22,9 @@ export class PermissionGuard implements CanActivate {
   private rules: RuleDefinition;
 
   constructor(
+    private reflector: Reflector,
     @Inject(RULE_CONFIG_INJECT_KEY)
     ruleConfigFactory: RuleConfigFactory,
-    private reflector: Reflector,
     @Inject(RULE_FACTORY_INJECT_KEY)
     private ruleFactory: RuleManagerFactory,
   ) {
@@ -37,14 +37,16 @@ export class PermissionGuard implements CanActivate {
       [context.getHandler(), context.getClass()],
     );
 
-    const user: UserCredential = context.switchToHttp().getRequest().user;
+    const req = context.switchToHttp().getRequest();
+
+    const user: UserCredential = req.user;
 
     const ruleManager = this.ruleFactory.createManager(
       this.rules,
       user.permissions,
     );
 
-    //TODO: Assign ruleManager to req context
+    req.ruleManager = ruleManager;
 
     return requiredPermissions.some((permission) =>
       ruleManager.isPermissionAccepted(permission),
