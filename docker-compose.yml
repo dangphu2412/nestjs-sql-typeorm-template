@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+    nginx:
+        container_name: sms-nginx
+        image: nginx:1.21.1-alpine
+        build:
+            context: ./docker/nginx
+        ports:
+            - '3000:80'
+
+    postgres:
+        container_name: sms-pg
+        image: 13-alpine
+        restart: always
+        env_file: .env
+        environment:
+          POSTGRES_PASSWORD: $DB_PASSWORD
+          POSTGRES_USER: $DB_USERNAME
+          POSTGRES_DB: $DB_DATABASE
+        volumes:
+            - ./docker/data:/data/db
+
+    backend:
+        container_name: sms-be
+        image: sms/be
+        build:
+            context: .
+        restart: always
+        env_file: .env
+        depends_on:
+            - postgres
+        links:
+            - postgres
+            - redis
+
+    redis:
+        container_name: sms-redis
+        image: redis:6.2.5-alpine
+
+volumes:
+    data:
