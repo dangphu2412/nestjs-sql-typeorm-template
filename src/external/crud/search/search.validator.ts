@@ -18,7 +18,7 @@ export abstract class AbstractSearchValidator
       ArrayUtils.isPresent(sorts)
     ) {
       const isNotAccepted = !sorts.some((item) =>
-        schema.allowSorts.includes(item.sort),
+        schema.allowSorts.includes(item.column),
       );
 
       if (isNotAccepted) {
