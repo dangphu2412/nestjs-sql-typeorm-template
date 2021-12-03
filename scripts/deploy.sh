@@ -1,0 +1,1 @@
+ssh $SSH_USER@$SSH_HOST "cd ./nestjs-typeorm-template && echo Starting to deploy && git pull && sudo docker-compose up -d --build && exit"
