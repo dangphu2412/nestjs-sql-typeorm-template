@@ -8,6 +8,7 @@ import {
 import { UploadApiResponse } from 'cloudinary';
 import { CloudinaryProvider } from './providers/cloudinary.provider';
 import { unlink } from 'fs/promises';
+import { toSecuredUrls } from './mapper/media.mapper';
 @Injectable()
 export class MediaService {
   private logger: Logger;
@@ -27,11 +28,7 @@ export class MediaService {
       await this.handleUploadErrorProcess(error, files);
     }
 
-    return this.toSecuredUrls(uploadedResults);
-  }
-
-  private toSecuredUrls(uploadResponses: UploadApiResponse[]) {
-    return uploadResponses.map((res) => res.secure_url);
+    return toSecuredUrls(uploadedResults);
   }
 
   private getUploadProcess(files: Array<Express.Multer.File>) {

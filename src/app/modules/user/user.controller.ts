@@ -1,4 +1,6 @@
 import { PermissionEnum } from '@constants/permissions.enum';
+import { SearchCriteria } from '@external/crud/search/search-criteria';
+import { SearchQuery } from '@external/crud/search/search.decorator';
 import { RuleManager } from '@external/racl/core/rule.manager';
 import { ExtractRuleManager } from '@external/racl/decorator/get-manager.decorator';
 import { PermissionGranted } from '@modules/auth/decorator/granted-permission.decorator';
@@ -9,6 +11,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { GrantPermissionDto } from './dto/grant-permission.dto';
+import { OverviewSearchValidator } from './pipes/overview-search.validator';
 import { UserService } from './user.service';
 
 @ApiTags('users')
@@ -22,6 +25,7 @@ export class UserController {
   public findAll(
     @AuthContext() user: UserCredential,
     @ExtractRuleManager() ruleManager: RuleManager,
+    @SearchQuery(OverviewSearchValidator) searchQuery: SearchCriteria,
   ) {
     return this.userService.findAll();
   }

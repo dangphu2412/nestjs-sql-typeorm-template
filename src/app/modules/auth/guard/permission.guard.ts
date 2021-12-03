@@ -19,7 +19,7 @@ import { UserCredential } from '../types/user-cred.interface';
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
-  private rules: RuleDefinition;
+  private readonly rules: RuleDefinition;
 
   constructor(
     private reflector: Reflector,

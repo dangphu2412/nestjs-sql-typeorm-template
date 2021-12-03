@@ -29,6 +29,7 @@ export class AuthService {
     const permissions = this.permissionService.toPermissionRules(
       user.permissions,
     );
+
     return {
       accessToken: this.jwtService.sign(
         JwtPayloadDto.create(user.id, user.fullName, permissions),
