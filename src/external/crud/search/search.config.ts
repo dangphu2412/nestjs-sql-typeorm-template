@@ -2,20 +2,20 @@ import { isNumber } from 'lodash';
 import { ConfigKeys } from './constant';
 
 export interface SearchConfigOptions {
-  maxLimit: number;
-  maxPage: number;
-  defaultLimit: number;
-  defaultPage: number;
+  maxLimit?: number;
+  maxPage?: number;
+  defaultLimit?: number;
+  defaultPage?: number;
 }
 
 export class SearchConfig {
-  static _store = new Map();
+  static _store = new Map<ConfigKeys, unknown>();
 
-  static get(key) {
+  static get(key: ConfigKeys) {
     return this._store.get(key);
   }
 
-  static set(key, value) {
+  static set(key: ConfigKeys, value: unknown) {
     this._store.set(key, value);
   }
 

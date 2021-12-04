@@ -1,3 +1,4 @@
+import '@config/crud.config';
 import { RuleConfig } from '@config/rule.config';
 import { getTypeOrmModule } from '@config/typeorm.config';
 import { RaclModule } from '@external/racl/rule.module';

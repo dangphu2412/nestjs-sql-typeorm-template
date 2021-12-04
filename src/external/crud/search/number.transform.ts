@@ -25,3 +25,9 @@ export function assertReachMax(value, maxKey, reachMaxSupplier) {
     throw reachMaxSupplier();
   }
 }
+
+export function assertNegative(value: number, failSupplier: () => Error) {
+  if (value < 0) {
+    throw failSupplier();
+  }
+}

@@ -1,19 +1,15 @@
 import { BadRequestException } from '@nestjs/common';
 import { Request } from 'express';
 import { ConfigKeys } from './constant';
-import { assertReachMax, parseNumberFromQr } from './number.transform';
+import { FilterCriteria, parseFilters } from './filter';
+import {
+  assertNegative,
+  assertReachMax,
+  parseNumberFromQr,
+} from './number.transform';
 import { parseSearch } from './search';
-
-interface SortCriteria {
-  direction: 'ASC' | 'DESC';
-  column: string;
-}
-
-interface FilterCriteria {
-  column: string;
-  value: string;
-  comparator: string;
-}
+import { SearchConfig } from './search.config';
+import { parseSorts, SortCriteria } from './sort';
 
 export class SearchCriteria {
   public search = '';
@@ -33,10 +29,17 @@ export class SearchCriteria {
   }
 
   static getPage(req: Request) {
-    const value = parseNumberFromQr(
-      req.query.page,
-      () => new BadRequestException('Page should be an number'),
+    const value =
+      parseNumberFromQr(
+        req.query.page,
+        () => new BadRequestException('Page should be an number'),
+      ) || (SearchConfig.get(ConfigKeys.DEFAULT_PAGE) as number);
+
+    assertNegative(
+      value,
+      () => new BadRequestException('Page should not be a negative number'),
     );
+
     assertReachMax(
       value,
       ConfigKeys.MAX_PAGE,
@@ -49,10 +52,17 @@ export class SearchCriteria {
   }
 
   static getLimit(req: Request) {
-    const value = parseNumberFromQr(
-      req.query.limit,
-      () => new BadRequestException('Limit should be an number'),
+    const value =
+      parseNumberFromQr(
+        req.query.limit,
+        () => new BadRequestException('Limit should be an number'),
+      ) || (SearchConfig.get(ConfigKeys.DEFAULT_LIMIT) as number);
+
+    assertNegative(
+      value,
+      () => new BadRequestException('Limit should not be a negative number'),
     );
+
     assertReachMax(
       value,
       ConfigKeys.MAX_LIMIT,
@@ -65,9 +75,10 @@ export class SearchCriteria {
   }
 
   static getFilters(req: Request): FilterCriteria[] {
-    return [];
+    return parseFilters(req.query.filter);
   }
+
   static getSorts(req: Request): SortCriteria[] {
-    return [];
+    return parseSorts(req.query.sort);
   }
 }
