@@ -1,6 +1,6 @@
 import { PermissionEnum } from '@constants/permissions.enum';
-import { SearchCriteria } from '@external/crud/search/search-criteria';
-import { SearchQuery } from '@external/crud/search/search.decorator';
+import { SearchCriteria } from '@external/crud/search/core/search-criteria';
+import { SearchQuery } from '@external/crud/search/decorator/search.decorator';
 import { RuleManager } from '@external/racl/core/rule.manager';
 import { ExtractRuleManager } from '@external/racl/decorator/get-manager.decorator';
 import { PermissionGranted } from '@modules/auth/decorator/granted-permission.decorator';

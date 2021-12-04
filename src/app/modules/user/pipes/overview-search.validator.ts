@@ -1,7 +1,7 @@
 import {
   AbstractSearchValidator,
   SearchValidationSchema,
-} from '@external/crud/search/search.validator';
+} from '@external/crud/search/pipes/search.validator';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

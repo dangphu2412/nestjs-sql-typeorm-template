@@ -1,5 +1,5 @@
 import { Query } from 'express-serve-static-core';
-import { SearchConfig } from './search.config';
+import { SearchConfig } from '../config/search.config';
 
 export function parseNumberFromQr(
   value: string | Query | string[] | Query[],

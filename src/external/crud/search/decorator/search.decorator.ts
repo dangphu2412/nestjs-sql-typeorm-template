@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { SearchCriteria } from './search-criteria';
+import { SearchCriteria } from '../core/search-criteria';
 
 export const SearchQuery = createParamDecorator(
   (data: string, ctx: ExecutionContext) => {

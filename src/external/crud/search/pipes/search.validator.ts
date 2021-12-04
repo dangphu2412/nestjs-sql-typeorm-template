@@ -1,6 +1,6 @@
 import { ArrayUtils } from '@external/utils/array/array.utils';
 import { BadRequestException, PipeTransform } from '@nestjs/common';
-import { SearchCriteria } from './search-criteria';
+import { SearchCriteria } from '../core/search-criteria';
 
 export interface SearchValidationSchema {
   allowFilters: string[];

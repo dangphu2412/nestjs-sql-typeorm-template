@@ -1,5 +1,5 @@
 import { isNumber } from 'lodash';
-import { ConfigKeys } from './constant';
+import { ConfigKeys } from '../constant';
 
 export interface SearchConfigOptions {
   maxLimit?: number;

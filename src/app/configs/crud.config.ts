@@ -1,4 +1,4 @@
-import { SearchConfig } from '@external/crud/search/search.config';
+import { SearchConfig } from '@external/crud/search/config/search.config';
 
 SearchConfig.config({
   defaultLimit: 10,
