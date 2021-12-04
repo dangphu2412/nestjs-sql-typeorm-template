@@ -3,4 +3,6 @@ export enum ConfigKeys {
   DEFAULT_LIMIT,
   MAX_LIMIT,
   MAX_PAGE,
+  FILTER_COMPARATOR,
+  SORT_DIRECTION,
 }
