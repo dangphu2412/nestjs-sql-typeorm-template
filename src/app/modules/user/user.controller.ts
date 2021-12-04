@@ -27,7 +27,7 @@ export class UserController {
     @ExtractRuleManager() ruleManager: RuleManager,
     @SearchQuery(OverviewSearchValidator) searchQuery: SearchCriteria,
   ) {
-    return this.userService.findAll();
+    return this.userService.findAll(searchQuery);
   }
 
   @Post()

@@ -17,6 +17,8 @@ import { BcryptService } from '@modules/auth/services/bcrypt.service';
 import { ConfigService } from '@external/config/config.service';
 import { ArrayUtils } from '@external/utils/array/array.utils';
 import { ErrorAssertion } from '@modules/error/error-assertion';
+import { SearchCriteria } from '@external/crud/search/core/search-criteria';
+import { toOrders } from '@external/crud/common/pipes/order.pipe';
 
 @Injectable()
 export class UserService {
@@ -42,8 +44,10 @@ export class UserService {
     return pick(user, ['id', 'username', 'fullName', 'avatar']) as ProfileDto;
   }
 
-  public findAll() {
-    return this.userRepository.find();
+  public findAll(searchQuery: SearchCriteria) {
+    return this.userRepository.findAndCount({
+      order: toOrders(searchQuery.sorts),
+    });
   }
 
   public async grantPermissionForUser(
