@@ -22,7 +22,7 @@ export class RuleManager {
     });
   }
 
-  public isPermissionAccepted(
+  public can(
     permission: string,
     conditions: Record<string, unknown> = {},
   ): boolean {
@@ -33,6 +33,17 @@ export class RuleManager {
       return (this.userRules[permission].matchCondition as AuthorizeHandler)(
         conditions,
       );
+    }
+    return false;
+  }
+
+  public has(permission: string) {
+    if (
+      this.userRules[permission] &&
+      isBoolean(this.userRules[permission].matchCondition) &&
+      this.userRules[permission].matchCondition
+    ) {
+      return true;
     }
     return false;
   }

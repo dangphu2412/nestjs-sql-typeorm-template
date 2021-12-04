@@ -49,7 +49,7 @@ export class PermissionGuard implements CanActivate {
     req.ruleManager = ruleManager;
 
     return requiredPermissions.some((permission) =>
-      ruleManager.isPermissionAccepted(permission),
+      ruleManager.has(permission),
     );
   }
 }
