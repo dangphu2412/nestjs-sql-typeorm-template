@@ -3,7 +3,6 @@ import {
   RuleConfigFactory,
   RuleDefinition,
 } from '@external/racl/core/rule.config';
-import { UserCredential } from '@modules/auth/types/user-cred.interface';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -12,11 +11,8 @@ export class RuleConfig implements RuleConfigFactory {
     return {
       [PermissionEnum.ADMIN]: { matchCondition: true },
       [PermissionEnum.EDIT_OWN]: {
-        matchCondition: (params: {
-          authorId: string;
-          user: UserCredential;
-        }) => {
-          return params.authorId === params.user.userId;
+        matchCondition: (params: { authorId: string; ownerId: string }) => {
+          return params.authorId === params.ownerId;
         },
       },
     };

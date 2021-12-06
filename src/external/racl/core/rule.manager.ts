@@ -1,3 +1,4 @@
+import { ForbiddenException } from '@nestjs/common/exceptions/forbidden.exception';
 import { isBoolean } from 'lodash';
 import { AuthorizeHandler, RuleDefinition } from './rule.config';
 
@@ -37,6 +38,13 @@ export class RuleManager {
     return false;
   }
 
+  public cannot(
+    permission: string,
+    conditions: Record<string, unknown> = {},
+  ): boolean {
+    return !this.can(permission, conditions);
+  }
+
   public has(permission: string) {
     if (
       this.userRules[permission] &&
@@ -46,5 +54,31 @@ export class RuleManager {
       return true;
     }
     return false;
+  }
+
+  public throwIfCan(
+    permission: string,
+    conditions: Record<string, unknown> = {},
+    exceptionConsumer: () => ForbiddenException,
+  ): void {
+    if (this.can(permission, conditions)) {
+      if (exceptionConsumer) {
+        throw exceptionConsumer();
+      } else {
+        throw new ForbiddenException();
+      }
+    }
+  }
+
+  public throwIfCannot(
+    permission: string,
+    conditions: Record<string, unknown> = {},
+    exceptionConsumer: () => ForbiddenException,
+  ): void {
+    if (this.cannot(permission, conditions)) {
+      throw exceptionConsumer();
+    } else {
+      throw new ForbiddenException();
+    }
   }
 }
