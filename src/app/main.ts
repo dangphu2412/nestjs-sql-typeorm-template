@@ -1,3 +1,4 @@
+import { getCorsConfig } from '@config/cors.config';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from 'src/external/config/config.service';
@@ -9,6 +10,7 @@ async function bootstrap() {
   const PORT = ConfigService.getInt('PORT') ?? 3000;
 
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors(getCorsConfig());
 
   configSwagger(app, 'docs');
 
