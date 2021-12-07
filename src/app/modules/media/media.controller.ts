@@ -10,7 +10,7 @@ import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { MediaService } from './media.service';
 
 @ApiTags('media')
-@Controller('media')
+@Controller('v1/media')
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 

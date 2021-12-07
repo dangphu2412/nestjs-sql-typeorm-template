@@ -1,13 +1,9 @@
-import { Permission } from '@modules/permission/permission.entity';
-import { PermissionService } from '@modules/permission/permission.service';
-import { User } from '@modules/user/user.entity';
+import { PermissionModule } from '@modules/permission/permission.module';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '../../../external/config/config.service';
 import { UserModule } from '../user/user.module';
-import { UserService } from '../user/user.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { OAuth2AuthenticationProvider } from './provider/o-auth2-authentication.provider';
@@ -24,7 +20,7 @@ import { BcryptService } from './services/bcrypt.service';
       },
     }),
     UserModule,
-    TypeOrmModule.forFeature([User, Permission]),
+    PermissionModule,
   ],
   controllers: [AuthController],
   providers: [
@@ -32,8 +28,6 @@ import { BcryptService } from './services/bcrypt.service';
     JwtStrategy,
     OAuth2AuthenticationProvider,
     BcryptService,
-    UserService,
-    PermissionService,
   ],
 })
 export class AuthModule {}
