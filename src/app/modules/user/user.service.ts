@@ -19,6 +19,7 @@ import { ArrayUtils } from '@external/utils/array/array.utils';
 import { ErrorAssertion } from '@modules/error/error-assertion';
 import { SearchCriteria } from '@external/crud/search/core/search-criteria';
 import { toOrders } from '@external/crud/common/pipes/order.pipe';
+import { ClassFactory } from '@external/utils/clazz/clazz.factory';
 
 @Injectable()
 export class UserService {
@@ -92,7 +93,7 @@ export class UserService {
       );
     }
 
-    const userEntity = User.create(createUserDto);
+    const userEntity = ClassFactory.create(User, createUserDto);
 
     userEntity.password = await this.bcryptService.hash(userEntity.password);
     userEntity.avatar = ConfigService.getCache('DEFAULT_AVATAR');
