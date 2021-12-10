@@ -1,4 +1,5 @@
 import { PermissionEnum } from '@constants/permissions.enum';
+import { toPage } from '@external/crud/page/extensions/typeorm-pageable';
 import { SearchCriteria } from '@external/crud/search/core/search-criteria';
 import { SearchQuery } from '@external/crud/search/decorator/search.decorator';
 import { RuleManager } from '@external/racl/core/rule.manager';
@@ -22,12 +23,12 @@ export class UserController {
   @PermissionGranted(PermissionEnum.ADMIN)
   @Protected
   @Get()
-  public findAll(
+  public async findAll(
     @AuthContext() user: UserCredential,
     @ExtractRuleManager() ruleManager: RuleManager,
     @SearchQuery(OverviewSearchValidator) searchQuery: SearchCriteria,
   ) {
-    return this.userService.findAll(searchQuery);
+    return toPage(await this.userService.findAll(searchQuery), searchQuery);
   }
 
   @Post()
