@@ -10,4 +10,15 @@ export class Meta {
     next?: string;
     last?: string;
   };
+
+  constructor(meta?: Omit<Meta, 'pageCount'>) {
+    if (meta) {
+      return {
+        ...meta,
+        pageCount: Math.ceil(meta.totalCount / meta.size),
+      };
+    }
+
+    return {};
+  }
 }

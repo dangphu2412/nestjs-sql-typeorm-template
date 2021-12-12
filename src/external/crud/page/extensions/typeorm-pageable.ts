@@ -14,7 +14,6 @@ export function toPage<T>(
       page: search.page,
       size: search.limit,
       totalCount: records[1] as number,
-      pageCount: Math.floor((records[1] as number) / search.limit),
     });
   }
   return new Pageable(records as T[], {
