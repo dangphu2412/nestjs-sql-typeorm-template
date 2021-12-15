@@ -8,7 +8,7 @@ export enum TimeType {
   TimeTracker,
 }
 
-export const TimeEntityGenerator = (type?: TimeType): Constructor => {
+export const TimeEntityGenerator = (type?: TimeType): Constructor<any> => {
   if (!type) return BaseTracker;
 
   const typeToClass = {

@@ -44,10 +44,4 @@ export class User extends TimeEntityGenerator() {
     },
   })
   public permissions: Permission[];
-
-  static create(partials: Partial<User>) {
-    const i = new User();
-    Object.assign(i, partials);
-    return i;
-  }
 }
